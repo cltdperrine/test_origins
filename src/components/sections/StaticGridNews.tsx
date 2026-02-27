@@ -1,0 +1,50 @@
+import { Link } from "react-router-dom";
+import type { Section } from "../../types/content";
+
+interface Props {
+  section: Section;
+}
+
+export default function StaticGridNews({ section }: Props) {
+  function getLink(type: string, slug: string) {
+    if (type === "edito___article") return `/articles/${slug}`;
+    if (type === "edito___video") return `/videos/${slug}`;
+    return "#";
+  }
+
+  return (
+    <div className="mb-16">
+      <h2 className="text-2xl font-bold mb-6">
+        Les actus
+      </h2>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        {section.items?.map((item) => (
+          <Link
+            key={item.id}
+            to={getLink(item.type, item.slug)}
+            className="bg-white rounded-xl shadow hover:shadow-xl transition overflow-hidden">
+
+            <img
+              src={
+                item.image?.url ||
+                item.images?.main?.url ||
+                "https://placehold.co/600x400"
+              }
+              alt={item.title}
+              className="w-full h-52 object-cover"/>
+
+            <div className="p-4">
+              <h3 className="font-semibold text-lg line-clamp-2">{item.title}</h3>
+              <p className="text-sm text-gray-500 mt-2">{item.type}</p>
+
+            </div>
+          </Link>
+
+        ))}
+
+      </div>
+
+    </div>
+  );
+}
