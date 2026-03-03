@@ -4,7 +4,6 @@ import ArticleDetail from './pages/ArticleDetail';
 import VideoDetail from './pages/VideoDetail';
 import Header from './components/layout/Header';
 import Articles from './pages/Articles';
-import Videos from './pages/Videos';
 
 
 function App() {
@@ -16,7 +15,6 @@ function App() {
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/articles' element={<Articles />} />
-        <Route path='/videos' element={<Videos />} />
         <Route path='/articles/:slug' element={<ArticleDetail />} />
         <Route path='/videos/:slug' element={<VideoDetail />} />
       </Routes>
