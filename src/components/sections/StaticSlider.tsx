@@ -22,7 +22,7 @@ item.type === "edito___article"
 : `/videos/${item.id}`;
 
 return (
-  <section className="relative w-full h-[80vh] min-h-[500px]">
+  <section className="relative w-full h-[80vh] min-h-[500px] mb-2">
     <Link to={link} className="block w-full h-full">
       <div className="relative w-full h-full overflow-hidden">
 

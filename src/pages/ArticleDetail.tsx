@@ -58,11 +58,9 @@ useEffect(() => {
 
     return (
 
-        // TITRE
         <div className="max-w-4xl mx-auto px-6 py-12">
             <h1>{article.title}</h1>
 
-            {/* IMAGES */}
             <div className="mb-8">
                 <img
                     src={article.images?.main?.url ?? placeholder}
@@ -70,8 +68,6 @@ useEffect(() => {
                     className="w-full aspect-[16/9] object-cover rounded-xl"
                 />
             </div>
-
-            {/* CATEGORIES */}
 
             {article.categories && (
                 <div className="flex flex-wrap gap-2 mb-6">

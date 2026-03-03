@@ -20,6 +20,7 @@ export default function SectionRenderer({ section }: Props) {
         case "static_grid_news":
             return <StaticGridNews section={section} />
 
+
         default:
             return <SectionFallback />
     }
