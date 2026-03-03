@@ -34,7 +34,7 @@ export default function Home() {
     if (error) return <p>{error}</p>
 
     return (
-        <div className="space-y-16">
+        <div className="w-full">
             {sections.map((section) => (
                 <SectionRenderer key={section.id} section={section} />
             ))}

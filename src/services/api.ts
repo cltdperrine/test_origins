@@ -20,9 +20,11 @@ export async function apiFetch<T>(
     });
 
     if (!response.ok) {
-        throw new Error(`Erreur API: ${response.status}`);
+        throw new Error(`Erreur API: ${response.status}`);    
+ 
     }
 
     return response.json();
-}
 
+
+}

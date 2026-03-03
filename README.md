@@ -1,73 +1,202 @@
-# React + TypeScript + Vite
+## Base URL
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# Documentation – Frontend tech-test
 
-Currently, two official plugins are available:
+## 1. Présentation générale
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Ce projet est une application frontend développée avec React + Vite + TypeScript.
 
-## React Compiler
+Elle consomme une API CMS externe afin d'afficher:
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+* Une page d'accueil dynamique avec sections
+* Une liste d'articles
+* Une liste de vidéos
+* Des pages détails pour chaque contenu
 
-## Expanding the ESLint configuration
+Le projet est structuré de manière modulaire et typée pour sécuriser les données issues de l'API.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+---
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## 2. Stack et choix technique
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+* **React 18**: bibliothèque UI pour créer des interfaces dynamiques
+* **Vite**: environnement de développement rapide avec Hot Module Replacement performant
+* **TypeScript**: sécurisation des structures de données issues de l'API
+* **React Router DOM**: gestion de routes dynamiques pour les pages détail
+* **Tailwind CSS**: mise en page rapide, responsive et maintenable
+* **API REST externe**: récupération des contenus dynamiques
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+---
+
+## 3. Arborescence du projet
+
+```
+test_origins/
+│── index.html
+│── package.json
+│── vite.config.ts
+|── .env
+|── .env.example
+│
+└── src/
+    │── main.tsx
+    │── App.tsx
+    │── index.css
+    │
+    ├── assets/
+    │   └── placeholder.png
+    │
+    ├── components/
+    │   ├── layout/
+    │   │   └── Header.tsx
+    │   │
+    │   └── sections/
+    │       ├── StaticGridNews.tsx
+    │       ├── StaticCarouselNews.tsx
+    │       ├── StaticSlider.tsx
+    │       └── SectionRenderer.tsx
+    │
+    ├── pages/
+    │   ├── Home.tsx
+    │   ├── Articles.tsx
+    │   ├── ArticleDetail.tsx
+    │   ├── Videos.tsx
+    │   └── VideoDetail.tsx
+    │
+    ├── services/
+    │   └── api.ts
+    │
+    └── types/
+        └── content.ts
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## 4. Installation et lancement
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### 4.1 Prérequis
+
+* Node.js >= 18
+
+### 4.2 Configuration `.env`
+
+Créer un fichier `.env` à la racine du projet:
+
+```env
+VITE_ENDPOINT_URL=
+VITE_X_ACCOUNT_KEY=
 ```
+
+### 4.3 Installation des dépendances
+
+```bash
+npm install
+```
+
+### 4.4 Lancement du serveur
+
+```bash
+npm run dev
+# ou
+yarn dev
+```
+
+Application accessible sur :
+
+```
+http://localhost:5173
+```
+
+---
+
+## 5. Architecture du projet
+
+### 5.1 Routing
+
+Gestion des routes avec React Router:
+
+* "/" -> Home
+* "/articles/:slug" -> détail d'un article
+* "/videos/:slug" -> détail d'une vidéo
+
+### 5.2 Gestion des données
+
+Toutes les requêtes API passent par:
+
+```
+src/services/api.ts
+```
+
+Ce fichier centralise:
+* l'URL de base
+* les headers
+* la gestion des erreurs
+
+### 5.3 Typage TypeScript
+
+Les structures de données issues de l'API sont définies dans:
+
+```
+src/types/content.ts
+```
+
+Cela permet:
+
+* d'éviter les erreurs de proprietés inexistantes
+* de sécuriser l'affichage
+* d'améliorer la maintenabilité
+
+---
+
+## 6. Particularités API
+
+### 6.1 Récupération des articles
+
+L'API nécessite:
+
+```
+GET "/articles?id={id}&language=fr"
+```
+
+### 6.2 Récupération des vidéos
+
+Les vidéos utilisent:
+
+```
+"video.url"
+```
+
+### 6.3 Problèmes rencontrés
+
+#### 1. Slug VS ID
+Certaines routes ne fonctionnaient pas avec "slug" mais uniquement avec "id".
+
+#### 2. Gestion CORS/ vidéos
+Certaines vidéos issues du CMS sont bloquées par le navigateur (OpaqueResponseBlocking).
+
+Solution mise en place:
+ * fallback Image si la vidéo ne charge pas
+ * gestion conditionnelle de l'affichage du composant <video>
+
+#### 3. Structure hétérogène des données:
+ Les contenus CMS n'avaient pas toutes les mêmes propriétés (Image, Images.main, etc).
+
+ Solution:
+
+```
+ item.image?.url ?? item.images?.main?.url
+```
+
+#### 4. Indisponibilité temporaire de l'API
+À deux reprises, l'API a retourné des erreurs 401 / 503.
+
+Actions mises en place:
+* vérification via Postman pour isoler frontend / API
+* ajout de logs de debug
+* gestion des erreurs UI
+* fallback visuel
+
+Apprentissage:
+* meilleure compréhension du debugging réseau
+* gestion des erreurs asynchrones
+* différenciation problème frontend / backend

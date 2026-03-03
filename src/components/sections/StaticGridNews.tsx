@@ -6,9 +6,10 @@ interface Props {
 }
 
 export default function StaticGridNews({ section }: Props) {
-  function getLink(type: string, slug: string) {
-    if (type === "edito___article") return `/articles/${slug}`;
-    if (type === "edito___video") return `/videos/${slug}`;
+
+  function getLink(type: string, id: string) {
+    if (type === "edito___article") return `/articles/${id}`;
+    if (type === "edito___video") return `/videos/${id}`;
     return "#";
   }
 
@@ -19,32 +20,35 @@ export default function StaticGridNews({ section }: Props) {
       </h2>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-        {section.items?.map((item) => (
-          <Link
-            key={item.id}
-            to={getLink(item.type, item.slug)}
-            className="bg-white rounded-xl shadow hover:shadow-xl transition overflow-hidden">
+        {section.items?.map((item) => {
 
-            <img
-              src={
-                item.image?.url ||
-                item.images?.main?.url ||
-                "https://placehold.co/600x400"
-              }
-              alt={item.title}
-              className="w-full h-52 object-cover"/>
+          return (
+            <Link
+              key={item.id}
+              to={getLink(item.type, item.id)}
+              className="bg-white rounded-xl shadow hover:shadow-xl transition overflow-hidden"
+            >
+              <img
+                src={
+                  item.images?.main?.url ||
+                  "https://placehold.co/600x400"
+                }
+                alt={item.title}
+                className="w-full h-52 object-cover"
+              />
 
-            <div className="p-4">
-              <h3 className="font-semibold text-lg line-clamp-2">{item.title}</h3>
-              <p className="text-sm text-gray-500 mt-2">{item.type}</p>
-
-            </div>
-          </Link>
-
-        ))}
-
+              <div className="p-4">
+                <h3 className="font-semibold text-lg line-clamp-2">
+                  {item.title}
+                </h3>
+                <p className="text-sm text-gray-500 mt-2">
+                  {item.type === "edito___article" ? "Article" : "Vidéo"}
+                </p>
+              </div>
+            </Link>
+          );
+        })}
       </div>
-
     </div>
   );
 }
