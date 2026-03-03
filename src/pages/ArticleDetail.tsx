@@ -59,7 +59,7 @@ useEffect(() => {
     return (
 
         <div className="max-w-4xl mx-auto px-6 py-12">
-            <h1>{article.title}</h1>
+            <h1 className="text-4xl font-bold mb-8">{article.title}</h1>
 
             <div className="mb-8">
                 <img
@@ -83,7 +83,7 @@ useEffect(() => {
             )}
 
             {article.body && (
-                <div className="prose max-w-none"
+                <div className="my-4 text-lg text-body"
                     dangerouslySetInnerHTML={{ __html: article.body}} />
 )}
 

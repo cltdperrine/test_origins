@@ -3,6 +3,8 @@ export interface ContentItem {
   type: string;
   title: string;
 
+  publication_date?: string;
+
   slug?: string;
 
   system?: {
