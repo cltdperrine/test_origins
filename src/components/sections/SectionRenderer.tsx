@@ -9,20 +9,30 @@ interface Props {
     section: Section;
 }
 
+// RENDER pour rendre dynamiquement la bonne section en fonction du type
 export default function SectionRenderer({ section }: Props) {
+    let content;
+
     switch (section.type) {
         case "static_slider":
-            return <StaticSlider section={section} />
+            content = <StaticSlider section={section} />
+            break;
 
         case "static_carousel_news":
-            return <StaticCarousel section={section} />
+            content = <StaticCarousel section={section} />
+            break;
 
         case "static_grid_news":
-            return <StaticGridNews section={section} />
+            content = <StaticGridNews section={section} />
+            break;
 
-
+        // fallback affiché si le type n'est pas reconnu
         default:
-            return <SectionFallback />
+            content = <SectionFallback />
     }
+
+    return (
+        <section className="py-16">{content}</section>
+    )
 }
 

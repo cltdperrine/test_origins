@@ -2,17 +2,21 @@ import { Disclosure } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Link, useLocation } from "react-router-dom";
 
+// concaténation de classes
 function classNames(...classes: string[]) {
     return classes.filter(Boolean).join(" ");
 }
 
+// HEADER
+
 export default function Header() {
+    // récupère l'url
     const location = useLocation();
 
+    // navigation
     const navigation = [
         { name: "Accueil", path: "/" },
-        { name: "Articles", path: "/articles" },
-        { name: "Vidéos", path: "/videos" },
+
     ];
 
     return (
@@ -22,17 +26,18 @@ export default function Header() {
                     <div className="mx-auto max-w-7xl px-6">
                         <div className="flex h-16 items-center justify-between">
 
-                            {/* Logo */}
+                            {/* logo ou nom */}
                             <div className="flex items-center">
                                 <Link
                                     to="/"
                                     className="text-lg font-semibold text-gray-900 tracking-tight"
+
                                 >
-                                    tech-test | Origins Digital
+                                    Tech-Test | Origins Digital
                                 </Link>
                             </div>
 
-                            {/* Desktop navigation */}
+                            {/* nav desktop */}
                             <div className="hidden sm:flex space-x-6">
                                 {navigation.map((item) => {
                                     const isActive = location.pathname === item.path;
@@ -54,7 +59,7 @@ export default function Header() {
                                 })}
                             </div>
 
-                            {/* Mobile button */}
+                            {/* menu burger (responsive) */}
                             <div className="sm:hidden">
                                 <Disclosure.Button className="inline-flex items-center justify-center rounded-md p-2 text-gray-600 hover:text-gray-900">
                                     {open ? (
@@ -68,7 +73,7 @@ export default function Header() {
                         </div>
                     </div>
 
-                    {/* Mobile menu */}
+                    {/* menu burger (si ouvert) */}
                     <Disclosure.Panel className="sm:hidden px-6 pb-4">
                         {navigation.map((item) => (
                             <Disclosure.Button

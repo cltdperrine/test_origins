@@ -6,40 +6,48 @@ interface Props {
   section: Section;
 }
 
+// CAROUSEL
+
 export default function StaticCarousel({ section }: Props) {
+  //index de l'élément affiché dans le carousel
   const [currentIndex, setCurrentIndex] = useState(0);
 
+  //liste des items et fallback sur tableau vide
   const items = section.items ?? [];
 
+  // génère l'url de navigation selon le type de contenu (articles ou vidéos)
   function getLink(type: string, slug: string) {
     if (type === "edito___article") return `/articles/${slug}`;
     if (type === "edito___video") return `/videos/${slug}`;
     return "#";
   }
-
+  // passe à l'élément suivant (si on est à la fin du carousel, on revient au début)
   function next() {
     setCurrentIndex((prev) =>
       prev === items.length - 1 ? 0 : prev + 1
     );
   }
 
+  // passe à l'élément précédent
   function prev() {
     setCurrentIndex((prev) =>
       prev === 0 ? items.length - 1 : prev - 1
     );
   }
 
- 
+  // défilement automatique du carousel toutes les 4 secondes
   useEffect(() => {
     const interval = setInterval(() => {
       next();
     }, 4000);
 
+    // nettoyage de l'interval
     return () => clearInterval(interval);
   }, [items.length]);
 
   return (
     <div className="relative w-full overflow-hidden mb-16">
+      {/* conteneur des slides */}
       <div
         className="flex transition-transform duration-500 ease-in-out"
         style={{
@@ -53,6 +61,7 @@ export default function StaticCarousel({ section }: Props) {
             className="w-full flex-shrink-0"
           >
             <div className="relative w-full aspect-[16/9]">
+              {/* image principale */}
               <img
                 src={
                   item.image?.url ??
@@ -62,6 +71,7 @@ export default function StaticCarousel({ section }: Props) {
                 alt={item.title}
                 className="w-full h-full object-cover"
               />
+              {/* titre */}
               <div className="absolute inset-0 bg-black/40 flex items-end p-8">
                 <h2 className="text-white text-3xl font-bold">
                   {item.title}
@@ -72,9 +82,11 @@ export default function StaticCarousel({ section }: Props) {
         ))}
       </div>
 
+      {/* boutons */}
       <button
         onClick={prev}
         className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/80 px-3 py-2 rounded shadow"
+        aria-label="Slide précédent"
       >
         ←
       </button>
@@ -82,6 +94,7 @@ export default function StaticCarousel({ section }: Props) {
       <button
         onClick={next}
         className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/80 px-3 py-2 rounded shadow"
+        aria-label="Slide suivant"
       >
         →
       </button>

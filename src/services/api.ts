@@ -13,7 +13,6 @@ export async function apiFetch<T>(
     const response = await fetch(`${API_URL}${endpoint}`, {
         ...options,
         headers: {
-            ...options.headers,
             "x-account-key": ACCOUNT_KEY,
             ...options.headers,
         },

@@ -5,6 +5,8 @@ interface Props {
   section: Section;
 }
 
+// GRILLE & CARDS NEWS
+// les cards sont cliquables et redirigent vers leur page respective
 export default function StaticGridNews({ section }: Props) {
 
   function getLink(type: string, id: string) {
@@ -14,11 +16,13 @@ export default function StaticGridNews({ section }: Props) {
   }
 
   return (
+    // titre
     <div className="mb-16 container mx-auto px-10">
       <h2 className="text-2xl font-bold mb-6">
         LES ACTUALITÉS
       </h2>
 
+      {/* grille */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
         {section.items?.map((item) => {
           const imageUrl =
